@@ -1,5 +1,18 @@
 ﻿@{
     ViewBag.Title = "Index";
+    var showMessage = ViewBag.ShowMessage;
 }
 <script type="text/javascript" src="@Url.Content("~/Scripts/Flight/jquery.Flight.js")"></script>
-<h2>Index</h2>
+
+<h2>@showMessage</h2>
+
+<div>
+    @using (Html.BeginForm("searchAction","Search")){
+
+        <input type="text" id="fromCity" name="fromCity" />
+        <input type="hidden" id="fromCityCode" name="fromCityCode" />
+        <input type="text" id="toCity" name="toCity" />
+        <input type="hidden" id="toCityCode" name="toCityCode" />
+        
+    }
+</div>

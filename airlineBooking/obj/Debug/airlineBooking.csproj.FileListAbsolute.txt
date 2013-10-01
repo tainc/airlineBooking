@@ -95,6 +95,5 @@ C:\Users\tainc\Documents\My Web Sites\razorC.net\airlineBooking\bin\DotNetOpenAu
 C:\Users\tainc\Documents\My Web Sites\razorC.net\airlineBooking\bin\DotNetOpenAuth.OAuth.xml
 C:\Users\tainc\Documents\My Web Sites\razorC.net\airlineBooking\bin\DotNetOpenAuth.OpenId.xml
 C:\Users\tainc\Documents\My Web Sites\razorC.net\airlineBooking\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
-C:\Users\tainc\Documents\My Web Sites\razorC.net\airlineBooking\obj\Debug\airlineBooking.csprojResolveAssemblyReference.cache
 C:\Users\tainc\Documents\My Web Sites\razorC.net\airlineBooking\obj\Debug\airlineBooking.dll
 C:\Users\tainc\Documents\My Web Sites\razorC.net\airlineBooking\obj\Debug\airlineBooking.pdb
