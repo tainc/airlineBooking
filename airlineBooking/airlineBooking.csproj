@@ -177,6 +177,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CarrierIdsModel.cs" />
+    <Compile Include="Models\FlightModel.cs" />
+    <Compile Include="Models\OutboundLegModel.cs" />
+    <Compile Include="Models\QuotesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

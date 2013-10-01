@@ -1,4 +1,5 @@
-﻿@{
+﻿@model airlineBooking.Models.FlightModel
+@{
     ViewBag.Title = "Index";
     var showMessage = ViewBag.ShowMessage;
 }
@@ -7,12 +8,22 @@
 <h2>@showMessage</h2>
 
 <div>
-    @using (Html.BeginForm("searchAction","Search")){
+    @using (Html.BeginForm("Flights", "Flight"))
+    {
 
-        <input type="text" id="fromCity" name="fromCity" />
-        <input type="hidden" id="fromCityCode" name="fromCityCode" />
-        <input type="text" id="toCity" name="toCity" />
-        <input type="hidden" id="toCityCode" name="toCityCode" />
+        <input type="text" id="fromCity" />
+        @Html.HiddenFor(model => model.fromCity, new { id = "fromCityCode" })
+        <input type="text" id="toCity" />
+        @Html.HiddenFor(model => model.toCity, new { id = "toCityCode" })
+        
+        <span>Ngày đi</span>
+        <input type="text" id="fromDate" />
+        @Html.HiddenFor(model => model.fromDate, new { id = "fromDateCode" })
+        <span>Ngày đến</span>
+        <input type="text" id="toDate" />
+        @Html.HiddenFor(model => model.toDate, new { id = "toDateCode" })
+
+        <input type="submit" id="submitForm" value="Search" />
         
     }
 </div>
