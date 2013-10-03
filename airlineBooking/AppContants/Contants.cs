@@ -20,11 +20,11 @@ namespace airlineBooking.AppContants
         /// <summary>
         /// Sets currency when request web service
         /// </summary>
-        public const string Currency = "VND";
+        public const string Currency = "vnd";
 
         /// <summary>
         /// Sets locale when request web service
         /// </summary>
-        public const string Locale = "vi-VN";
+        public const string Locale = "vi";
     }
 }

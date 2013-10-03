@@ -178,10 +178,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\CarriersModel.cs" />
-    <Compile Include="Models\CarrierIdsModel.cs" />
+    <Compile Include="Models\CarrierModel.cs" />
     <Compile Include="Models\FlightModel.cs" />
-    <Compile Include="Models\OutboundLegModel.cs" />
+    <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\PlacesModel.cs" />
     <Compile Include="Models\QuotesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -324,6 +323,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Flight\Index.cshtml" />
     <Content Include="Views\Shared\Ajax.cshtml" />
+    <Content Include="Views\Flight\SearchFlight.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

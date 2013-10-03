@@ -21,13 +21,13 @@ namespace airlineBooking.ViewModels
         /// <summary>
         /// Gets or Sets list carriers model
         /// </summary>
-        public List<CarriersModel> carriersModel { get; set; }
+        public List<CarrierModel> carriersModel { get; set; }
 
         public SearchFlightViewModel()
         {
             this.quotesModel = new List<QuotesModel>();
             this.placesModel = new List<PlacesModel>();
-            this.carriersModel = new List<CarriersModel>();
+            this.carriersModel = new List<CarrierModel>();
         }
     }
 }

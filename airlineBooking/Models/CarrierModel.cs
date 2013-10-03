@@ -5,11 +5,16 @@ using System.Web;
 
 namespace airlineBooking.Models
 {
-    public class CarrierIdsModel
+    public class CarrierModel
     {
         /// <summary>
         /// Gets or Sets CarrierId
         /// </summary>
         public int CarrierId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Name
+        /// </summary>
+        public string Name { get; set; }
     }
 }

@@ -7,36 +7,6 @@
         $("#toDateCode").val($("#toDate").val());
     });
 
-    $("#toCity").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: '/autosuggest?query=' + $("#toCity").val(),
-                dataType: "json",
-                success: function (data) {
-                    response($.map(data['Places'], function (item) {
-                        return {
-                            label: item.PlaceName + " ( " + item.PlaceId.split("-sky", 1) + " )",
-                            value: item.PlaceId
-                        }
-                    }));
-                }
-            });
-        },
-        minLength: 2,
-        select: function (event, ui) {
-            $("#toCity").val(ui.item.label);
-            $("#toCityCode").val(ui.item.value);
-            return false;
-        },
-        open: function () {
-            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-        },
-        close: function () {
-
-            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-        }
-    });
-
     $("#fromCity").autocomplete({
         source: function( request, response ) {
             $.ajax({
@@ -46,7 +16,7 @@
                     response($.map(data['Places'], function (item) {
                         return {
                             label: item.PlaceName + " ( " + item.PlaceId.split("-sky",1) + " )",
-                            value: item.PlaceId
+                            value: item.PlaceId + "(" + item.CountryId + ")"
                         }
                     }));
                 }
@@ -67,5 +37,34 @@
         }
     });
 
+    $("#toCity").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '/autosuggest?query=' + $("#toCity").val(),
+                dataType: "json",
+                success: function (data) {
+                    response($.map(data['Places'], function (item) {
+                        return {
+                            label: item.PlaceName + " ( " + item.PlaceId.split("-sky", 1) + " )",
+                            value: item.PlaceId + "(" + item.CountryId + ")"
+                        }
+                    }));
+                }
+            });
+        },
+        minLength: 2,
+        select: function (event, ui) {
+            $("#toCity").val(ui.item.label);
+            $("#toCityCode").val(ui.item.value);
+            return false;
+        },
+        open: function () {
+            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+        },
+        close: function () {
+
+            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+        }
+    });
 
 });

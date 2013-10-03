@@ -5,7 +5,7 @@ using System.Web;
 
 namespace airlineBooking.Models
 {
-    public class OutboundLegModel
+    public class RouteModel
     {
         public int OriginId { get; set; }
 
@@ -13,11 +13,11 @@ namespace airlineBooking.Models
 
         public DateTime DepartureDate { get; set; }
 
-        public List<CarrierIdsModel> CarrerIds { get; set; }
+        public List<CarrierModel> Carrier { get; set; }
 
-        public OutboundLegModel()
+        public RouteModel()
         {
-            this.CarrerIds = new List<CarrierIdsModel>();
+            this.Carrier = new List<CarrierModel>();
         }
     }
 }

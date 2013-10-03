@@ -40,20 +40,50 @@ namespace airlineBooking.Controllers
         /// <returns>null</returns>
         public ActionResult Flights(FlightModel flightModel)
         {
-            String fromDate = String.Format("{0:yyyy-MM-dd}", flightModel.FromDate);
-            String toDate = String.Format("{0:yyyy-MM-dd}", flightModel.ToDate);
+            var result = RequestService(flightModel);
 
-            var result = RequestService(flightModel, fromDate, toDate);
             var searchFlightViewModel = new SearchFlightViewModel();
 
-            searchFlightViewModel = InsertFlightViewModel(result, searchFlightViewModel);
+            //searchFlightViewModel = InsertFlightViewModel(result, searchFlightViewModel);
 
-            return null;
+            return View("SearchFlight",searchFlightViewModel);
         }
 
         #endregion Actions
 
         #region Methods
+
+        /// <summary>
+        /// Gets session string in response data into web
+        /// </summary>
+        /// <param name="inputDataResponse"></param>
+        /// <returns>session key</returns>
+        public string SessionDataRequest(string inputDataResponse)
+        {
+            var sessionOfString = "";
+            if (inputDataResponse.IndexOf("SessionKey") > 1 && inputDataResponse.IndexOf("OriginPlace") > 1) 
+            {
+                for (var intdexOfDataRequest = inputDataResponse.IndexOf("SessionKey"); intdexOfDataRequest < inputDataResponse.IndexOf("OriginPlace"); intdexOfDataRequest++)
+                {
+                    sessionOfString += inputDataResponse[intdexOfDataRequest];
+                }
+            }
+
+            string[] arrayAddSplit = new string[5];
+            arrayAddSplit[0] = @":";
+            arrayAddSplit[1] = @",";
+            arrayAddSplit[2] = @"\";
+            arrayAddSplit[3] = @"/";
+            arrayAddSplit[4] = @"""";
+
+            var sessionResultOutputData = sessionOfString.Split(arrayAddSplit, StringSplitOptions.RemoveEmptyEntries);
+
+            if (sessionResultOutputData.Count() > 1)
+            {
+                return sessionResultOutputData[1].ToString();
+            }
+            return string.Empty;
+        }
 
         /// <summary>
         /// request web service
@@ -62,17 +92,30 @@ namespace airlineBooking.Controllers
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <returns>dynamic result</returns>
-        private dynamic RequestService(FlightModel flightModel, String fromDate, String toDate)
+        private dynamic RequestService(FlightModel flightModel)
         {
-            string page = @"http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/" + Contants.Country + "/" + Contants.Currency +
-                                            "/" + Contants.Locale + "/" + flightModel.FromCity + "/" + flightModel.ToCity + "/" + fromDate +
-                                            "/" + toDate + "?apiKey=" + Contants.APIWebservice;
+            String fromYMonth = String.Format("{0:yyMM}", flightModel.FromDate);
+            String fromDate = String.Format("{0:dd}", flightModel.FromDate);
+            String toYMonth = String.Format("{0:yyMM}", flightModel.ToDate);
+            String toDate = String.Format("{0:dd}", flightModel.ToDate);
+
+            string page = @"http://www.skyscanner.com.vn/flights/" + flightModel.FromCity + "/" + flightModel.ToCity +
+                "/" + fromYMonth + "/" + toYMonth + "/cheapest-flights-from-vietnam-to-hanoi-trong-thang10-2013.html";
 
             WebClient webClient = new WebClient();
             String outputData = webClient.DownloadString(page);
-            dynamic result = JsonConvert.DeserializeObject(outputData);
+            string sessionKey = SessionDataRequest(outputData);
 
-            return result;
+            string pageRequestWebService = @"http://www.skyscanner.com.vn/dataservices/routedate/v2.0/" + sessionKey;
+            webClient.Headers.Add("Cookie", "scanner=usrplace:::" + Contants.Country + "&lang:::" + Contants.Locale + "&currency:::" + Contants.Currency +
+                                                        "&fromCy:::VN&from:::SGN&toCy:::VN&to:::HAN&adults:::1&children:::0&infants:::0&oym:::" + fromYMonth +
+                                                        "&iym:::" + toYMonth + "&oday:::" + fromDate + "&iday:::" + toDate + 
+                                                        "&preferDirects:::false&cabinclass:::Economy&rtn:::true&dayviewtype:::1&charttype:::0&di:::false");
+
+            String outputDataInXml = webClient.DownloadString(pageRequestWebService);
+            dynamic result = JsonConvert.DeserializeObject(outputDataInXml);
+
+            return outputDataInXml;
         }
 
         /// <summary>
@@ -83,9 +126,25 @@ namespace airlineBooking.Controllers
         /// <returns>SearchFlightViewModel searchFlightViewModel</returns>
         private SearchFlightViewModel InsertFlightViewModel(dynamic result, SearchFlightViewModel searchFlightViewModel)
         {
+
+            //loop data of web service response, insert into CarriersModel and insert CarriersModel into searchFlightViewModel
+            for (int indexCarriers = 0; indexCarriers < result.Carriers.Count; indexCarriers++)
+            {
+                var modelCarrier = new CarrierModel();
+                if (String.IsNullOrEmpty(result.Carriers[indexCarriers].CarrierId.ToString()) == false)
+                    modelCarrier.CarrierId = result.Carriers[indexCarriers].CarrierId;
+                if (String.IsNullOrEmpty(result.Carriers[indexCarriers].Name.ToString()) == false)
+                    modelCarrier.Name = result.Carriers[indexCarriers].Name;
+
+                searchFlightViewModel.carriersModel.Add(modelCarrier);
+            }
+
+
             //loop data of web service response, insert into QuotesModel and insert QuotesModel into searchFlightViewModel
             for (int indexQuote = 0; indexQuote < result.Quotes.Count; indexQuote++)
             {
+                if (result.Quotes[indexQuote].OutboundLeg != null)
+                    break;
                 var modelQuote = new QuotesModel();
 
                 //check data of web service response is not null
@@ -95,20 +154,23 @@ namespace airlineBooking.Controllers
                     modelQuote.MinPrice = result.Quotes[indexQuote].MinPrice;
                 if (String.IsNullOrEmpty(result.Quotes[indexQuote].Direct.ToString()) == false)
                     modelQuote.Direct = result.Quotes[indexQuote].Direct;
+               
+               
                 if (String.IsNullOrEmpty(result.Quotes[indexQuote].OutboundLeg.OriginId.ToString()) == false)
-                    modelQuote.OutboundLeg.OriginId = result.Quotes[indexQuote].OutboundLeg.OriginId;
+                    modelQuote.Route.OriginId = result.Quotes[indexQuote].OutboundLeg.OriginId;
                 if (String.IsNullOrEmpty(result.Quotes[indexQuote].OutboundLeg.DestinationId.ToString()) == false)
-                    modelQuote.OutboundLeg.DestinationId = result.Quotes[indexQuote].OutboundLeg.DestinationId;
+                    modelQuote.Route.DestinationId = result.Quotes[indexQuote].OutboundLeg.DestinationId;
                 if (String.IsNullOrEmpty(result.Quotes[indexQuote].OutboundLeg.DepartureDate.ToString()) == false)
-                    modelQuote.OutboundLeg.DepartureDate = result.Quotes[indexQuote].OutboundLeg.DepartureDate;
+                    modelQuote.Route.DepartureDate = result.Quotes[indexQuote].OutboundLeg.DepartureDate;
 
                 //loop data of QuotesModel, insert into CarrierIdsModel
                 for (var indexCarrerId = 0; indexCarrerId < result.Quotes[indexQuote].OutboundLeg.CarrierIds.Count; indexCarrerId++)
                 {
-                    var modelCarrerIds = new CarrierIdsModel();
-                    
-                    modelCarrerIds.CarrierId = result.Quotes[indexQuote].OutboundLeg.CarrierIds[indexCarrerId];
-                    modelQuote.OutboundLeg.CarrerIds.Add(modelCarrerIds);
+                    var modelCarrer = new CarrierModel();
+
+                    modelCarrer.CarrierId = result.Quotes[indexQuote].OutboundLeg.CarrierIds[indexCarrerId];
+                    modelCarrer.Name = this.requestCarrierNameFromId(modelCarrer.CarrierId,searchFlightViewModel);
+                    modelQuote.Route.Carrier.Add(modelCarrer);
                 }
                 searchFlightViewModel.quotesModel.Add(modelQuote);
             }
@@ -129,19 +191,21 @@ namespace airlineBooking.Controllers
                 searchFlightViewModel.placesModel.Add(modelPlace);
             }
 
-            //loop data of web service response, insert into CarriersModel and insert CarriersModel into searchFlightViewModel
-            for (int indexCarriers = 0; indexCarriers < result.Carriers.Count; indexCarriers++)
-            {
-                var modelCarrier = new CarriersModel();
-                if (String.IsNullOrEmpty(result.Carriers[indexCarriers].CarrierId.ToString()) == false)
-                    modelCarrier.CarrierId = result.Carriers[indexCarriers].CarrierId;
-                if (String.IsNullOrEmpty(result.Carriers[indexCarriers].Name.ToString()) == false)
-                    modelCarrier.Name = result.Carriers[indexCarriers].Name;
-
-                searchFlightViewModel.carriersModel.Add(modelCarrier);
-            }
+           
 
             return searchFlightViewModel;
+        }
+
+        private string requestCarrierNameFromId(int p, SearchFlightViewModel searchFlightViewModel)
+        {
+            for (var index = 0; index < searchFlightViewModel.carriersModel.Count; index++)
+            {
+                if (p == searchFlightViewModel.carriersModel[index].CarrierId) 
+                {
+                    return searchFlightViewModel.carriersModel[index].Name;
+                }
+            }
+            return string.Empty;
         }
 
         #endregion Methods

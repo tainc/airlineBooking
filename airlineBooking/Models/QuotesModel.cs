@@ -13,10 +13,10 @@ namespace airlineBooking.Models
 
         public bool Direct { get; set; }
 
-        public OutboundLegModel OutboundLeg { get; set; }
+        public RouteModel Route { get; set; }
 
         public QuotesModel() {
-            this.OutboundLeg = new OutboundLegModel();
+            this.Route = new RouteModel();
         }
     }
 }
