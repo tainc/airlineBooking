@@ -12,16 +12,16 @@
     {
 
         <input type="text" id="fromCity" />
-        @Html.HiddenFor(model => model.fromCity, new { id = "fromCityCode" })
+        @Html.HiddenFor(model => model.FromCity, new { id = "fromCityCode" })
         <input type="text" id="toCity" />
-        @Html.HiddenFor(model => model.toCity, new { id = "toCityCode" })
+        @Html.HiddenFor(model => model.ToCity, new { id = "toCityCode" })
         
         <span>Ngày đi</span>
         <input type="text" id="fromDate" />
-        @Html.HiddenFor(model => model.fromDate, new { id = "fromDateCode" })
+        @Html.HiddenFor(model => model.FromDate, new { id = "fromDateCode" })
         <span>Ngày đến</span>
         <input type="text" id="toDate" />
-        @Html.HiddenFor(model => model.toDate, new { id = "toDateCode" })
+        @Html.HiddenFor(model => model.ToDate, new { id = "toDateCode" })
 
         <input type="submit" id="submitForm" value="Search" />
         

@@ -161,6 +161,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppContants\Contants.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BootstrapBundleConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -177,11 +178,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CarriersModel.cs" />
     <Compile Include="Models\CarrierIdsModel.cs" />
     <Compile Include="Models\FlightModel.cs" />
     <Compile Include="Models\OutboundLegModel.cs" />
+    <Compile Include="Models\PlacesModel.cs" />
     <Compile Include="Models\QuotesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\SearchFlightViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\bootstrap-theme.css" />

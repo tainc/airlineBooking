@@ -7,12 +7,24 @@ namespace airlineBooking.Models
 {
     public class FlightModel
     {
-        public string fromCity { get; set; }
+        /// <summary>
+        /// Gets or Sets from city
+        /// </summary>
+        public string FromCity { get; set; }
 
-        public string toCity { get; set; }
+        /// <summary>
+        /// Gets or Sets to city
+        /// </summary>
+        public string ToCity { get; set; }
 
-        public DateTime fromDate { get; set; }
+        /// <summary>
+        /// Gets or Sets from date
+        /// </summary>
+        public DateTime FromDate { get; set; }
 
-        public DateTime toDate { get; set; }
+        /// <summary>
+        /// Gets or Sets to date
+        /// </summary>
+        public DateTime ToDate { get; set; }
     }
 }
