@@ -2,7 +2,7 @@
 
 namespace airlineBooking.Models
 {
-    public class InboundItineraryLegs : OutboundItineraryLegs
+    public class InboundItineraryLegModel : OutboundItineraryLegModel
     {
     }
 }

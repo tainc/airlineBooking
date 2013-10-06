@@ -37,13 +37,11 @@ namespace airlineBooking.Controllers
         /// <returns>null</returns>
         public ActionResult Flights(FlightModel flightModel)
         {
-            RequestService(flightModel);
-
             var searchFlightViewModel = new SearchFlightViewModel();
+            InsertFlightViewModel(RequestService(flightModel), searchFlightViewModel);
 
-            //searchFlightViewModel = InsertFlightViewModel(result, searchFlightViewModel);
-
-            return View("SearchFlight", searchFlightViewModel);
+            //return View("SearchFlight");
+            return null;
         }
 
         #endregion Actions
@@ -87,7 +85,7 @@ namespace airlineBooking.Controllers
         /// </summary>
         /// <param name="flightModel"></param>
         /// <returns>dynamic result</returns>
-        private void RequestService(FlightModel flightModel)
+        private dynamic RequestService(FlightModel flightModel)
         {
             try
             {
@@ -115,12 +113,16 @@ namespace airlineBooking.Controllers
 
                 var outputDataInXml = webClient.DownloadString(pageRequestWebService);
 
-                JsonConvert.DeserializeObject(outputDataInXml);
+                return JsonConvert.DeserializeObject(outputDataInXml);
             }
             catch
             {
                 throw new Exception();
             }
+        }
+
+        private void InsertFlightViewModel(dynamic result, SearchFlightViewModel searchFlightViewModel)
+        {
         }
 
         #endregion Methods

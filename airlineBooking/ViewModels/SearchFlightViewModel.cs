@@ -1,33 +1,48 @@
-﻿using airlineBooking.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using airlineBooking.Models;
 
 namespace airlineBooking.ViewModels
 {
     public class SearchFlightViewModel
     {
         /// <summary>
-        /// Gets or Sets list quotes model
+        /// Gets or Sets QuoteRequestsModelList
         /// </summary>
-        public List<QuotesModel> quotesModel { get; set; }
+        public List<QuoteRequestModel> QuoteRequestsModelList { get; set; }
 
         /// <summary>
-        /// Gets or Sets list places model
+        /// Gets or Sets QuotesModelList
         /// </summary>
-        public List<PlacesModel> placesModel { get; set; }
+        public List<QuotesModel> QuotesModelList { get; set; }
 
         /// <summary>
-        /// Gets or Sets list carriers model
+        /// Gets or Sets OutboundItineraryLegsesModelList
         /// </summary>
-        public List<CarrierModel> carriersModel { get; set; }
+        public List<OutboundItineraryLegModel> OutboundItineraryLegsesModelList { get; set; }
+
+        /// <summary>
+        /// Gets or Sets InboundItineraryLegsesModelList
+        /// </summary>
+        public List<InboundItineraryLegModel> InboundItineraryLegsesModelList { get; set; }
+
+        /// <summary>
+        /// Gets or Sets StationsModelList
+        /// </summary>
+        public List<StationModel> StationsModelList { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CarrierModelList
+        /// </summary>
+        public List<CarrierModel> CarrierModelList { get; set; }
 
         public SearchFlightViewModel()
         {
-            this.quotesModel = new List<QuotesModel>();
-            this.placesModel = new List<PlacesModel>();
-            this.carriersModel = new List<CarrierModel>();
+            QuoteRequestsModelList = new List<QuoteRequestModel>();
+            QuotesModelList = new List<QuotesModel>();
+            OutboundItineraryLegsesModelList = new List<OutboundItineraryLegModel>();
+            InboundItineraryLegsesModelList = new List<InboundItineraryLegModel>();
+            StationsModelList = new List<StationModel>();
+            CarrierModelList = new List<CarrierModel>();
         }
     }
 }

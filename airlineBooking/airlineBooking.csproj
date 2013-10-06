@@ -171,19 +171,18 @@
     <Compile Include="Controllers\AutoSuggestController.cs" />
     <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Models\OutboundItineraryLegs.cs" />
+    <Compile Include="Models\OutboundItineraryLegModel.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CarrierModel.cs" />
     <Compile Include="Models\FlightModel.cs" />
-    <Compile Include="Models\InboundItineraryLegs.cs" />
-    <Compile Include="Models\QuoteRequests.cs" />
+    <Compile Include="Models\InboundItineraryLegModel.cs" />
+    <Compile Include="Models\QuoteRequestModel.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\QuotesModel.cs" />
-    <Compile Include="Models\Stations.cs" />
+    <Compile Include="Models\StationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\SearchFlightViewModel.cs" />
   </ItemGroup>
@@ -315,7 +314,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Flight\Index.cshtml" />
     <Content Include="Views\Shared\Ajax.cshtml" />
-    <Content Include="Views\Flight\SearchFlight.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

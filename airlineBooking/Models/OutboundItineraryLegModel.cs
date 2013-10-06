@@ -1,8 +1,7 @@
 ﻿using System;
-
-namespace airlineBooking.Controllers
+namespace airlineBooking.Models
 {
-    public class OutboundItineraryLegs
+    public class OutboundItineraryLegModel
     {
         /// <summary>
         /// Gets or Sets Id

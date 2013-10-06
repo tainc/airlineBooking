@@ -1,6 +1,6 @@
 ﻿namespace airlineBooking.Models
 {
-    public class QuoteRequests
+    public class QuoteRequestModel
     {
         /// <summary>
         /// Gets or Sets Id 

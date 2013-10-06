@@ -1,6 +1,6 @@
 ﻿namespace airlineBooking.Models
 {
-    public class Stations
+    public class StationModel
     {
         /// <summary>
         /// Gets or Sets Id 
