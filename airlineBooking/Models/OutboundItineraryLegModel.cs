@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace airlineBooking.Models
 {
     public class OutboundItineraryLegModel
@@ -6,7 +8,7 @@ namespace airlineBooking.Models
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or Sets OriginStation
@@ -34,8 +36,33 @@ namespace airlineBooking.Models
         public int Duration { get; set; }
 
         /// <summary>
+        /// Gets or Sets MarketingCarrierIds
+        /// </summary>
+        public List<string> MarketingCarrierIds { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OperatingCarrierIds
+        /// </summary>
+        public List<string> OperatingCarrierIds { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PricingOptionModelList
+        /// </summary>
+        public List<PricingOptionModel> PricingOptionModelList { get; set; }
+
+        /// <summary>
         /// Gets or Sets ItineraryLegType
         /// </summary>
         public string ItineraryLegType { get; set; }
+
+        /// <summary>
+        /// Contructer
+        /// </summary>
+        public OutboundItineraryLegModel()
+        {
+            OperatingCarrierIds = new List<string>();
+            MarketingCarrierIds = new List<string>();
+            PricingOptionModelList = new List<PricingOptionModel>();
+        }
     }
 }

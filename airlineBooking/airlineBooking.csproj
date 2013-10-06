@@ -179,6 +179,7 @@
     <Compile Include="Models\CarrierModel.cs" />
     <Compile Include="Models\FlightModel.cs" />
     <Compile Include="Models\InboundItineraryLegModel.cs" />
+    <Compile Include="Models\PricingOptionModel.cs" />
     <Compile Include="Models\QuoteRequestModel.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\QuotesModel.cs" />
@@ -314,6 +315,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Flight\Index.cshtml" />
     <Content Include="Views\Shared\Ajax.cshtml" />
+    <Content Include="Views\Flight\SearchFlight.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
