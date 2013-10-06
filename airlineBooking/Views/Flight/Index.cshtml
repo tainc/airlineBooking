@@ -13,8 +13,10 @@
 
         <input type="text" id="fromCity" />
         @Html.HiddenFor(model => model.FromCity, new { id = "fromCityCode" })
+        @Html.HiddenFor(model => model.FromCountry, new { id = "fromCountryCode" })
         <input type="text" id="toCity" />
         @Html.HiddenFor(model => model.ToCity, new { id = "toCityCode" })
+        @Html.HiddenFor(model => model.ToCountry, new { id = "toCountryCode" })
         
         <span>Ngày đi</span>
         <input type="text" id="fromDate" />
